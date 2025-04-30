@@ -1,0 +1,1865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmos Odyssey | Journey Through Space and Earth</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://img.icons8.com/color/48/000000/space-shuttle.png" type="image/png">
+    <style>
+        :root {
+            --primary: #0a192f;
+            --primary-light: #172a45;
+            --primary-lighter: #303f60;
+            --secondary: #64ffda;
+            --secondary-dark: #52d1b2;
+            --accent: #ff6482;
+            --text-light: #e6f1ff;
+            --text-gray: #8892b0;
+            --text-dark: #020c1b;
+            --card-bg: rgba(100, 255, 218, 0.03);
+            --card-hover: rgba(100, 255, 218, 0.1);
+            --transition: all 0.25s cubic-bezier(0.645,0.045,0.355,1);
+            --border-radius: 6px;
+            --shadow: 0 10px 30px -15px rgba(2,12,27,0.7);
+            --section-padding: 120px 0;
+            --header-height: 90px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--primary);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        h1, .hero-title {
+            font-family: 'Orbitron', 'Space Grotesk', sans-serif;
+        }
+
+        p {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--secondary);
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--secondary-dark);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: var(--section-padding);
+            position: relative;
+        }
+
+        /* Google Translate Widget */
+        #google_translate_element {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--primary-light);
+            border-radius: var(--border-radius);
+            padding: 10px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--primary-lighter);
+        }
+
+        #google_translate_element .goog-te-gadget {
+            color: var(--text-gray) !important;
+            font-size: 0.9rem !important;
+        }
+
+        #google_translate_element .goog-te-gadget-simple {
+            background-color: transparent !important;
+            border: 1px solid var(--primary-lighter) !important;
+            border-radius: var(--border-radius) !important;
+            padding: 5px 10px !important;
+        }
+
+        #google_translate_element .goog-te-menu-value span {
+            color: var(--text-light) !important;
+        }
+
+        #google_translate_element .goog-te-menu-value img {
+            display: none !important;
+        }
+
+        .goog-te-gadget .goog-te-combo {
+            background: var(--primary-light) !important;
+            color: var(--text-light) !important;
+            border: 1px solid var(--primary-lighter) !important;
+            border-radius: var(--border-radius) !important;
+            padding: 5px !important;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(12px);
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(100, 255, 218, 0.15);
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+        }
+
+        header.scrolled {
+            box-shadow: var(--shadow);
+            background-color: rgba(10, 25, 47, 0.98);
+            height: calc(var(--header-height) - 10px);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .logo i {
+            transition: var(--transition);
+            font-size: 1.8rem;
+            margin-right: 12px;
+            color: var(--accent);
+        }
+
+        .logo:hover i {
+            transform: rotate(360deg);
+            color: var(--secondary);
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+
+        .logo span::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .logo:hover span::after {
+            transform: scaleX(1);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2.5rem;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: var(--text-light);
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            letter-spacing: 0.5px;
+        }
+
+        nav ul li a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover::before,
+        nav ul li a.active::before {
+            width: 100%;
+        }
+
+        nav ul li a.active {
+            color: var(--secondary);
+        }
+
+        nav ul li a i {
+            font-size: 0.7rem;
+            margin-bottom: 4px;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover i,
+        nav ul li a.active i {
+            opacity: 1;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 1001;
+            transition: var(--transition);
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-btn:hover {
+            color: var(--secondary);
+            transform: rotate(90deg);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            min-height: 800px;
+            display: flex;
+            align-items: center;
+            padding-top: var(--header-height);
+            background: radial-gradient(circle at 70% 30%, rgba(100, 255, 218, 0.15) 0%, transparent 50%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-1.2.1&auto=format&fit=crop&w=1353&q=80') center/cover no-repeat;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-subtitle {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero-subtitle::before {
+            content: '';
+            display: inline-block;
+            width: 60px;
+            height: 2px;
+            background: var(--secondary);
+            margin-right: 20px;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 6vw, 5rem);
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.1;
+            letter-spacing: 1px;
+            text-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
+        }
+
+        .hero-title span {
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            max-width: 650px;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            color: var(--secondary);
+            padding: 1.2rem 2rem;
+            border: 2px solid var(--secondary);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            background: rgba(100, 255, 218, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px -10px rgba(100, 255, 218, 0.3);
+        }
+
+        .btn-filled {
+            background: var(--secondary);
+            color: var(--primary);
+            margin-right: 1.5rem;
+        }
+
+        .btn-filled:hover {
+            background: var(--secondary-dark);
+            color: var(--primary);
+            box-shadow: 0 10px 20px -10px rgba(100, 255, 218, 0.5);
+        }
+
+        .btn i {
+            margin-left: 8px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .btn:hover i {
+            transform: translateX(3px);
+        }
+
+        /* Features Section */
+        .features {
+            background-color: var(--primary-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1454789548928-9efd52dc4031?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+            opacity: 0.03;
+            z-index: 0;
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            font-size: 2.5rem;
+            color: var(--text-light);
+            margin-bottom: 4rem;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            transition: var(--transition);
+            border: 1px solid rgba(100, 255, 218, 0.15);
+            backdrop-filter: blur(5px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            background: var(--card-hover);
+            box-shadow: var(--shadow);
+            border-color: rgba(100, 255, 218, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .feature-card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Explore Sections */
+        .explore-section {
+            position: relative;
+            overflow: hidden;
+            min-height: 800px;
+            display: flex;
+            align-items: center;
+        }
+
+        .explore-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(10,25,47,0.9), transparent 60%);
+            z-index: 1;
+        }
+
+        .explore-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+        }
+
+        .explore-image {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .earth {
+            background: linear-gradient(to right, var(--primary), transparent), 
+                        url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80') no-repeat center right/cover;
+        }
+
+        .space {
+            background: linear-gradient(to right, var(--primary), transparent), 
+                        url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-1.2.1&auto=format&fit=crop&w=1353&q=80') no-repeat center right/cover;
+        }
+
+        .wonders {
+            background: linear-gradient(to right, var(--primary), transparent), 
+                        url('https://images.unsplash.com/photo-1467269204594-9661b134dd2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center right/cover;
+        }
+
+        .explore-section p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Data Cards */
+        .data-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .data-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(100, 255, 218, 0.15);
+            backdrop-filter: blur(5px);
+        }
+
+        .data-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+            border-color: rgba(100, 255, 218, 0.3);
+        }
+
+        .data-value {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .data-label {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        /* Interactive Elements */
+        .interactive-container {
+            background: var(--primary-light);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--primary-lighter);
+            backdrop-filter: blur(5px);
+        }
+
+        .tab-buttons {
+            display: flex;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid var(--primary-lighter);
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-gray);
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+            letter-spacing: 0.5px;
+        }
+
+        .tab-btn.active {
+            color: var(--secondary);
+        }
+
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--secondary);
+            transition: var(--transition);
+        }
+
+        .tab-btn.active::after {
+            width: 100%;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .tab-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Exploration Details */
+        .exploration-details {
+            display: none;
+            background: var(--primary-light);
+            border-radius: var(--border-radius);
+            padding: 3rem;
+            margin-top: 3rem;
+            border: 1px solid var(--primary-lighter);
+            backdrop-filter: blur(5px);
+        }
+
+        .exploration-details.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .exploration-details h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .exploration-details p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .detail-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            transition: var(--transition);
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+
+        .detail-card:hover {
+            transform: translateY(-8px);
+            background: var(--card-hover);
+            border-color: rgba(100, 255, 218, 0.3);
+            box-shadow: var(--shadow);
+        }
+
+        .detail-title {
+            font-size: 1.3rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .detail-title i {
+            margin-right: 12px;
+            font-size: 1.1rem;
+        }
+
+        .detail-card p {
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Quiz Section */
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .quiz-options .btn {
+            width: 100%;
+            text-align: center;
+            margin-top: 0;
+            padding: 1.5rem;
+            font-size: 1.1rem;
+            justify-content: center;
+        }
+
+        .quiz-options .btn.active {
+            background: var(--secondary);
+            color: var(--primary);
+            box-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
+        }
+
+        .quiz-section {
+            background-color: var(--primary-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80') center/cover no-repeat;
+            opacity: 0.03;
+            z-index: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-light);
+            padding: 5rem 0 3rem;
+            border-top: 1px solid var(--primary-lighter);
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-1.2.1&auto=format&fit=crop&w=1353&q=80') center/cover no-repeat;
+            opacity: 0.03;
+            z-index: 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-column h3 {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 1.4rem;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-column p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-column ul li a {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-column ul li a i {
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--secondary);
+            transform: translateX(8px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: var(--text-gray);
+            font-size: 1.4rem;
+            transition: var(--transition);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--primary-lighter);
+            background: rgba(10, 25, 47, 0.5);
+        }
+
+        .social-links a:hover {
+            color: var(--secondary);
+            border-color: var(--secondary);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px -5px rgba(100, 255, 218, 0.3);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 1px solid var(--primary-lighter);
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-bottom p {
+            margin-bottom: 0;
+        }
+
+        .footer-bottom a {
+            color: var(--text-gray);
+            transition: var(--transition);
+        }
+
+        .footer-bottom a:hover {
+            color: var(--secondary);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 1000px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: clamp(2.5rem, 6vw, 4rem);
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+            
+            .detail-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 80px;
+                --section-padding: 80px 0;
+            }
+            
+            .header-container {
+                padding: 0 15px;
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 350px;
+                height: 100vh;
+                background: var(--primary-light);
+                transition: var(--transition);
+                padding: 6rem 2rem 2rem;
+                z-index: 1000;
+                border-left: 1px solid var(--primary-lighter);
+                box-shadow: -10px 0 30px -15px rgba(2,12,27,0.7);
+            }
+
+            nav.active {
+                right: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 1.5rem 0;
+            }
+
+            nav ul li a {
+                font-size: 1.2rem;
+                flex-direction: row;
+                justify-content: flex-start;
+            }
+
+            nav ul li a i {
+                opacity: 1;
+                font-size: 1rem;
+                margin-right: 12px;
+                margin-bottom: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero {
+                text-align: center;
+                padding-top: var(--header-height);
+                min-height: 700px;
+            }
+
+            .hero-content {
+                margin: 0 auto;
+            }
+
+            .hero-subtitle {
+                justify-content: center;
+            }
+
+            .hero-subtitle::before {
+                width: 40px;
+                margin-right: 15px;
+            }
+
+            .btn-container {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .btn-filled {
+                margin-right: 0;
+            }
+
+            .explore-section::before {
+                background: linear-gradient(to bottom, rgba(10,25,47,0.95), transparent);
+            }
+
+            .explore-content {
+                max-width: 100%;
+                padding-bottom: 400px;
+                text-align: center;
+            }
+
+            .explore-image {
+                width: 100%;
+                height: 400px;
+                top: auto;
+                bottom: 0;
+            }
+            
+            .data-cards {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            #google_translate_element {
+                bottom: 10px;
+                right: 10px;
+                padding: 5px;
+            }
+            
+            #google_translate_element .goog-te-gadget {
+                font-size: 0.8rem !important;
+            }
+            
+            #google_translate_element .goog-te-menu-value span {
+                display: none;
+            }
+        }
+
+        @media (max-width: 576px) {
+            :root {
+                --header-height: 70px;
+                --section-padding: 60px 0;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .logo i {
+                font-size: 1.5rem;
+            }
+            
+            .hero-title {
+                font-size: clamp(2rem, 6vw, 3rem);
+            }
+            
+            .hero-description {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 3rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .feature-card {
+                padding: 2rem;
+            }
+            
+            .tab-buttons {
+                flex-wrap: wrap;
+            }
+            
+            .tab-btn {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-column {
+                margin-bottom: 2rem;
+            }
+            
+            #google_translate_element {
+                display: none; /* Hide on very small screens */
+            }
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .pulse {
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes starPulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+        
+        .star-pulse {
+            animation: starPulse 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-rocket star-pulse"></i>
+                <span>CosmosOdyssey</span>
+            </a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="nav">
+                <ul>
+                    <li><a href="#home" class="nav-link active">Home <i class="fas fa-home"></i></a></li>
+                    <li><a href="#earth" class="nav-link">Earth <i class="fas fa-globe-americas"></i></a></li>
+                    <li><a href="#space" class="nav-link">Space <i class="fas fa-rocket"></i></a></li>
+                    <li><a href="#wonders" class="nav-link">Wonders <i class="fas fa-mountain"></i></a></li>
+                    <li><a href="#quiz" class="nav-link">Quiz <i class="fas fa-question-circle"></i></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <p class="hero-subtitle">Embark on a Galactic Journey</p>
+                    <h1 class="hero-title">Discover <span>Earth</span> & <span>Beyond</span></h1>
+                    <p class="hero-description">
+                        Journey through our planet's wonders and the mysteries of the cosmos with 
+                        interactive experiences, cutting-edge visualizations, and the latest scientific discoveries. 
+                        From the depths of our oceans to the farthest reaches of the universe, begin your exploration today.
+                    </p>
+                    <div class="btn-container">
+                        <a href="#earth" class="btn btn-filled">Explore Earth <i class="fas fa-arrow-down"></i></a>
+                        <a href="#space" class="btn">Discover Space <i class="fas fa-arrow-down"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container">
+                <h2 class="section-title">Why Explore With Us</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-globe-americas floating"></i>
+                        </div>
+                        <h3 class="feature-title">Interactive Earth</h3>
+                        <p>
+                            Explore our planet with 3D models, real-time data, and detailed 
+                            information about every continent, ocean, and ecosystem. Track weather 
+                            patterns, tectonic movements, and environmental changes with our 
+                            cutting-edge visualization tools. Dive into interactive maps that show 
+                            real-time seismic activity, weather systems, and ocean currents.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-star floating"></i>
+                        </div>
+                        <h3 class="feature-title">Cosmic Journey</h3>
+                        <p>
+                            Travel through our solar system and beyond with stunning visualizations 
+                            of planets, stars, and galaxies. Experience space missions and astronomical 
+                            phenomena in real-time. Our platform provides accurate orbital simulations, 
+                            allowing you to witness celestial events as they happen across the universe.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-mountain floating"></i>
+                        </div>
+                        <h3 class="feature-title">Natural Wonders</h3>
+                        <p>
+                            Discover Earth's most spectacular natural formations with immersive 
+                            360° experiences, expert commentary, and detailed geological information 
+                            about each location. Our virtual tours let you explore the Grand Canyon, 
+                            Mount Everest, and the Great Barrier Reef from the comfort of your home.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Earth Exploration Section -->
+        <section class="explore-section earth" id="earth">
+            <div class="container">
+                <div class="explore-content">
+                    <h2 class="section-title">Earth Explorer</h2>
+                    <p>
+                        Our planet is a complex, dynamic system of interconnected components. 
+                        Explore real-time weather patterns, tectonic plate movements, ocean currents, 
+                        and biodiversity hotspots. Learn about Earth's geology, climate systems, and 
+                        the impact of human activity on our environment through interactive models 
+                        and up-to-date scientific data from leading research institutions worldwide.
+                    </p>
+                    <div class="data-cards">
+                        <div class="data-card">
+                            <div class="data-value">7</div>
+                            <div class="data-label">Continents</div>
+                        </div>
+                        <div class="data-card">
+                            <div class="data-value">195</div>
+                            <div class="data-label">Countries</div>
+                        </div>
+                        <div class="data-card">
+                            <div class="data-value">8.7M</div>
+                            <div class="data-label">Species</div>
+                        </div>
+                        <div class="data-card">
+                            <div class="data-value">5</div>
+                            <div class="data-label">Oceans</div>
+                        </div>
+                    </div>
+                    <button id="exploreEarthBtn" class="btn">Explore Earth <i class="fas fa-chevron-down"></i></button>
+                    
+                    <div class="exploration-details" id="earthDetails">
+                        <h3>Earth's Major Systems</h3>
+                        <p>Explore the complex systems that make our planet unique and habitable. These interconnected systems work together to create the environment that sustains all life on Earth.</p>
+                        
+                        <div class="detail-grid">
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-water"></i> Hydrosphere</h4>
+                                <p>All of Earth's water, including oceans (96.5%), lakes, rivers, groundwater, and glaciers. The hydrosphere covers about 71% of Earth's surface and contains approximately 1.4 billion cubic kilometers of water.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-wind"></i> Atmosphere</h4>
+                                <p>The layers of gases surrounding Earth that protect life and regulate climate. Composed of 78% nitrogen, 21% oxygen, and trace amounts of other gases. Extends up to 10,000 km but 75% of mass is within 11 km.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-mountain"></i> Lithosphere</h4>
+                                <p>Earth's rigid outer layer, including the crust and upper mantle. Divided into tectonic plates that move at 1-10 cm/year. Continental crust is 30-50 km thick, while oceanic crust is 5-10 km thick.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-leaf"></i> Biosphere</h4>
+                                <p>The global ecological system integrating all living organisms and their interactions. Extends from 8 km above sea level to 11 km below ocean surface. Contains an estimated 8.7 million species.</p>
+                            </div>
+                        </div>
+                        
+                        <h3 style="margin-top: 2rem;">Earth's Structure</h3>
+                        <p>Earth is composed of multiple layers with distinct chemical and seismic properties. These layers formed over 4.5 billion years through planetary differentiation.</p>
+                        <div class="detail-grid">
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-layer-group"></i> Crust</h4>
+                                <p>5-70 km thick, continental (granite) and oceanic (basalt) types. Temperature ranges from 0°C at surface to 400°C at boundary with mantle. Contains all known life and human activity.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-fire"></i> Mantle</h4>
+                                <p>2,900 km thick, semi-solid rock that flows slowly over time. Divided into upper and lower mantle. Temperatures range from 500°C to 3,700°C. Convection currents drive plate tectonics.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-magnet"></i> Outer Core</h4>
+                                <p>2,200 km thick, liquid iron and nickel generating Earth's magnetic field. Temperatures between 4,000-5,000°C. Convection currents create geodynamo effect protecting Earth from solar winds.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-circle"></i> Inner Core</h4>
+                                <p>1,250 km radius, solid iron-nickel alloy with temperatures over 5,000°C. Pressure reaches 3.6 million atmospheres. Rotates slightly faster than Earth's surface.</p>
+                            </div>
+                        </div>
+                        
+                        <h3 style="margin-top: 2rem;">Earth's Vital Statistics</h3>
+                        <div class="detail-grid">
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-ruler-combined"></i> Dimensions</h4>
+                                <p>Equatorial diameter: 12,756 km. Polar diameter: 12,714 km. Circumference: 40,075 km (equatorial). Surface area: 510 million km² (29% land, 71% water).</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-weight-hanging"></i> Mass & Gravity</h4>
+                                <p>Mass: 5.97 × 10²⁴ kg. Surface gravity: 9.8 m/s². Density: 5.51 g/cm³. Earth is the densest planet in the solar system.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-sync-alt"></i> Orbit & Rotation</h4>
+                                <p>Orbital period: 365.256 days. Rotation period: 23h 56m 4.1s. Axial tilt: 23.44°. Average orbital speed: 29.78 km/s.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-temperature-low"></i> Climate</h4>
+                                <p>Surface temp range: -89°C to 56.7°C. Average: 14°C. Atmospheric pressure: 101.325 kPa at sea level. Earth is the only known planet with liquid water on its surface.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Space Exploration Section -->
+        <section class="explore-section space" id="space">
+            <div class="container">
+                <div class="explore-content">
+                    <h2 class="section-title">Space Explorer</h2>
+                    <p>
+                        The universe is vast and full of wonders. Explore our solar system, 
+                        distant galaxies, black holes, and the latest discoveries from space 
+                        telescopes and missions. Learn about the life cycles of stars, the 
+                        expansion of the universe, and the search for extraterrestrial life 
+                        through our comprehensive database updated daily with findings from NASA, 
+                        ESA, and other space agencies.
+                    </p>
+                    <div class="interactive-container">
+                        <div class="tab-buttons">
+                            <button class="tab-btn active" data-tab="solar-system">Solar System</button>
+                            <button class="tab-btn" data-tab="galaxies">Galaxies</button>
+                            <button class="tab-btn" data-tab="missions">Missions</button>
+                            <button class="tab-btn" data-tab="cosmology">Cosmology</button>
+                        </div>
+                        <div class="tab-content active" id="solar-system">
+                            <h3>Our Cosmic Neighborhood</h3>
+                            <p>
+                                Explore the eight planets, dozens of moons, and countless asteroids 
+                                and comets that make up our solar system. Learn about planetary 
+                                formation, orbital mechanics, and the unique characteristics of 
+                                each celestial body. Our solar system formed approximately 4.6 billion 
+                                years ago from the gravitational collapse of a giant molecular cloud.
+                            </p>
+                        </div>
+                        <div class="tab-content" id="galaxies">
+                            <h3>Island Universes</h3>
+                            <p>
+                                Discover the different types of galaxies, from spirals to ellipticals, 
+                                and learn about our home galaxy, the Milky Way. Explore galactic 
+                                collisions, supermassive black holes, and the large-scale structure 
+                                of the universe. The observable universe contains an estimated 2 trillion 
+                                galaxies, each with billions of stars.
+                            </p>
+                        </div>
+                        <div class="tab-content" id="missions">
+                            <h3>Space Exploration</h3>
+                            <p>
+                                Follow current and future space missions exploring our solar system 
+                                and beyond. Learn about spacecraft technology, astronaut training, 
+                                and the challenges of space travel. From the early days of Sputnik 
+                                to the upcoming Artemis missions to Mars, track humanity's journey 
+                                into the cosmos.
+                            </p>
+                        </div>
+                        <div class="tab-content" id="cosmology">
+                            <h3>Cosmic Mysteries</h3>
+                            <p>
+                                Delve into the fundamental questions about the origin, evolution, 
+                                and ultimate fate of the universe. Explore dark matter, dark energy, 
+                                cosmic inflation, and the Big Bang theory. The universe is approximately 
+                                13.8 billion years old and continues to expand at an accelerating rate.
+                            </p>
+                        </div>
+                    </div>
+                    <button id="exploreSpaceBtn" class="btn">Explore Space <i class="fas fa-chevron-down"></i></button>
+                    
+                    <div class="exploration-details" id="spaceDetails">
+                        <h3>Our Solar System</h3>
+                        <p>The Sun and everything bound to it by gravity, including planets, moons, asteroids, and comets. Our solar system extends far beyond the eight planets, with the Oort Cloud reaching about 1.6 light-years from the Sun.</p>
+                        
+                        <div class="detail-grid">
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-sun"></i> The Sun</h4>
+                                <p>Our G-type main-sequence star, containing 99.86% of the solar system's mass. Diameter: 1.39 million km. Surface temp: 5,500°C. Core temp: 15 million°C. Energy output: 3.8×10²⁶ watts.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-temperature-high"></i> Inner Planets</h4>
+                                <p>Terrestrial planets: Mercury, Venus, Earth, Mars - rocky with solid surfaces. Formed closer to Sun where only metals and silicates could condense. All have impact craters and tectonic features.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-wind"></i> Outer Planets</h4>
+                                <p>Gas giants (Jupiter, Saturn) and ice giants (Uranus, Neptune). Jupiter is 318 times Earth's mass. All have ring systems and numerous moons. Contain hydrogen, helium, water, ammonia, methane.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-snowflake"></i> Dwarf Planets</h4>
+                                <p>Including Pluto, Ceres, Haumea, Makemake, and Eris. Pluto has a diameter of 2,377 km and a thin nitrogen atmosphere. Ceres is the largest object in the asteroid belt.</p>
+                            </div>
+                        </div>
+                        
+                        <h3 style="margin-top: 2rem;">Key Space Missions</h3>
+                        <p>Humanity's robotic explorers have visited every planet in our solar system and continue to push the boundaries of our knowledge.</p>
+                        <div class="detail-grid">
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-satellite"></i> Voyager Program</h4>
+                                <p>Launched in 1977, now in interstellar space, carrying the Golden Record. Voyager 1 is 23.5 billion km from Earth (2023 data). Still transmitting data from beyond the heliopause.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-mars"></i> Mars Rovers</h4>
+                                <p>Perseverance (2020), Curiosity (2012), Opportunity (2004-2018), Spirit (2004-2010) exploring the Red Planet's surface. Searching for signs of past life, studying geology and climate.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-hubble"></i> Hubble Telescope</h4>
+                                <p>Launched in 1990, revolutionized astronomy with stunning deep-space images. Orbit: 547 km altitude. Has made over 1.5 million observations of 50,000 celestial objects.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-satellite-dish"></i> James Webb</h4>
+                                <p>Infrared telescope launched in 2021, studying the early universe. Located at L2 point, 1.5 million km from Earth. Can see galaxies formed just 200 million years after the Big Bang.</p>
+                            </div>
+                        </div>
+                        
+                        <h3 style="margin-top: 2rem;">Cosmic Phenomena</h3>
+                        <div class="detail-grid">
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-black-hole"></i> Black Holes</h4>
+                                <p>Regions of spacetime where gravity is so strong that nothing can escape. Sagittarius A* at our galaxy's center is 4 million solar masses. First image captured in 2019 by Event Horizon Telescope.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-star"></i> Supernovae</h4>
+                                <p>Powerful stellar explosions that can briefly outshine entire galaxies. Type II occurs when massive stars collapse. Type Ia occurs in binary systems. Distant supernovae revealed universe's accelerating expansion.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-meteor"></i> Nebulae</h4>
+                                <p>Giant clouds of dust and gas where stars are born. Emission nebulae glow from nearby hot stars. Reflection nebulae scatter light. Dark nebulae block light. Planetary nebulae are dying stars' ejected material.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-expand"></i> Dark Energy</h4>
+                                <p>Mysterious force causing universe's expansion to accelerate. Comprises 68% of universe's total energy. First evidence found in 1998 through observations of distant supernovae.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Natural Wonders Section -->
+        <section class="explore-section wonders" id="wonders">
+            <div class="container">
+                <div class="explore-content">
+                    <h2 class="section-title">Natural Wonders</h2>
+                    <p>
+                        Earth is home to breathtaking landscapes and natural phenomena. 
+                        Explore the Grand Canyon, Great Barrier Reef, Aurora Borealis, 
+                        and other wonders through interactive experiences. Learn about 
+                        their formation, ecological importance, and conservation efforts 
+                        through detailed multimedia presentations and expert commentary 
+                        from geologists and environmental scientists.
+                    </p>
+                    <div class="data-cards">
+                        <div class="data-card">
+                            <div class="data-value">7</div>
+                            <div class="data-label">Natural Wonders</div>
+                        </div>
+                        <div class="data-card">
+                            <div class="data-value">36</div>
+                            <div class="data-label">Biodiversity Hotspots</div>
+                        </div>
+                        <div class="data-card">
+                            <div class="data-value">257</div>
+                            <div class="data-label">World Heritage Sites</div>
+                        </div>
+                        <div class="data-card">
+                            <div class="data-value">14</div>
+                            <div class="data-label">Highest Peaks</div>
+                        </div>
+                    </div>
+                    <button id="exploreWondersBtn" class="btn">Explore Wonders <i class="fas fa-chevron-down"></i></button>
+                    
+                    <div class="exploration-details" id="wondersDetails">
+                        <h3>Seven Natural Wonders</h3>
+                        <p>Recognized for their extraordinary natural beauty and significance. These wonders showcase the incredible diversity and power of Earth's geological and biological processes.</p>
+                        
+                        <div class="detail-grid">
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-water"></i> Great Barrier Reef</h4>
+                                <p>World's largest coral reef system off Australia's coast, visible from space. 2,300 km long with 2,900 individual reefs and 900 islands. Home to 1,500 fish species and 400 coral types. Formed over 20 million years.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-mountain"></i> Grand Canyon</h4>
+                                <p>Massive gorge in Arizona carved by the Colorado River over 6 million years. 446 km long, up to 29 km wide, and 1.8 km deep. Exposes nearly 2 billion years of Earth's geological history in its rock layers.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-cloud"></i> Aurora Borealis</h4>
+                                <p>Natural light display in polar regions caused by solar particles colliding with atmospheric gases. Most active during solar maximum. Can extend 80-640 km above Earth's surface. Also occurs on other planets with magnetic fields.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-volcano"></i> Parícutin Volcano</h4>
+                                <p>Mexican volcano that suddenly appeared in a cornfield in 1943. Grew 424 m in first year. Erupted continuously until 1952, reaching 2,800 m elevation. One of few volcanoes whose birth has been observed by modern science.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-waterfall"></i> Victoria Falls</h4>
+                                <p>Largest waterfall in Africa on the Zambia-Zimbabwe border. 1.7 km wide with 108 m drop. Local name "Mosi-oa-Tunya" means "The Smoke That Thunders." Forms largest sheet of falling water in the world during flood season.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-umbrella-beach"></i> Harbor of Rio</h4>
+                                <p>Stunning natural harbor surrounded by dramatic granite mountains including Sugarloaf (396 m) and Corcovado (710 m). Formed by erosion of ancient rock formations. Features iconic Christ the Redeemer statue.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-fire"></i> Mount Everest</h4>
+                                <p>Earth's highest peak at 8,848.86 m (2020 measurement) in the Himalayas. Formed 50 million years ago by collision of Indian and Eurasian plates. Grows about 4 mm taller each year. Over 300 climbers have died attempting to summit.</p>
+                            </div>
+                        </div>
+                        
+                        <h3 style="margin-top: 2rem;">Biodiversity Hotspots</h3>
+                        <p>Regions with significant levels of biodiversity that are threatened by human activities. These areas contain at least 1,500 endemic plant species and have lost at least 70% of their original habitat.</p>
+                        <div class="detail-grid">
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-tree"></i> Amazon Rainforest</h4>
+                                <p>Largest tropical rainforest with unparalleled biodiversity. 5.5 million km² across 9 countries. Contains 10% of known species, including 40,000 plant, 3,000 fish, 1,300 bird, and 430 mammal species. Produces 20% of Earth's oxygen.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-paw"></i> Madagascar</h4>
+                                <p>Island with unique wildlife found nowhere else on Earth. 90% of its wildlife is endemic. Home to all 100+ species of lemurs. Has lost 90% of original forest cover. Contains 5% of world's plant and animal species on just 0.4% of land area.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-fish"></i> Coral Triangle</h4>
+                                <p>Marine area in Southeast Asia with highest coral diversity. 6 million km² across 6 countries. Contains 76% of world's coral species and 37% of reef fish species. Supports 120 million people. Threatened by overfishing and climate change.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-leaf"></i> Cape Floristic</h4>
+                                <p>South African region with exceptional plant diversity. 78,000 km² with 9,000 plant species, 69% endemic. Includes fynbos vegetation adapted to nutrient-poor soils and frequent fires. Home to the iconic protea flowers.</p>
+                            </div>
+                        </div>
+                        
+                        <h3 style="margin-top: 2rem;">Geological Marvels</h3>
+                        <div class="detail-grid">
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-hill-rockslide"></i> Zhangjiajie Pillars</h4>
+                                <p>China's towering sandstone pillars up to 1,080 m tall. Formed by 300 million years of erosion. Inspired the floating mountains in "Avatar." Contains the world's highest outdoor elevator (326 m) and glass-bottomed bridge (430 m long).</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-cave"></i> Waitomo Glowworm Caves</h4>
+                                <p>New Zealand caves illuminated by thousands of bioluminescent glowworms (Arachnocampa luminosa). The larvae produce blue-green light to attract prey. Formed over 30 million years in limestone bedrock.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-icicles"></i> Eisriesenwelt Ice Cave</h4>
+                                <p>Austrian limestone cave with 42 km of passages filled with spectacular ice formations. Largest ice cave in the world. Temperature remains below 0°C year-round. Ice forms from snowmelt that freezes in winter.</p>
+                            </div>
+                            <div class="detail-card">
+                                <h4 class="detail-title"><i class="fas fa-salt"></i> Salar de Uyuni</h4>
+                                <p>Bolivia's 10,582 km² salt flat, world's largest. Formed from prehistoric lakes. Contains 50-70% of world's lithium reserves. When covered with water, creates perfect mirror effect reflecting the sky.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section class="quiz-section" id="quiz">
+            <div class="container">
+                <h2 class="section-title">Test Your Knowledge</h2>
+                <div class="interactive-container">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" data-tab="earth-quiz">Earth</button>
+                        <button class="tab-btn" data-tab="space-quiz">Space</button>
+                        <button class="tab-btn" data-tab="wonders-quiz">Wonders</button>
+                        <button class="tab-btn" data-tab="science-quiz">Science</button>
+                    </div>
+                    <div class="tab-content active" id="earth-quiz">
+                        <h3>Earth Quiz</h3>
+                        <p>What is the deepest point in Earth's oceans?</p>
+                        <div class="quiz-options">
+                            <button class="btn">Mariana Trench</button>
+                            <button class="btn">Puerto Rico Trench</button>
+                            <button class="btn">Java Trench</button>
+                        </div>
+                        <p style="margin-top: 2rem;">Which layer of Earth is primarily responsible for generating its magnetic field?</p>
+                        <div class="quiz-options">
+                            <button class="btn">Inner Core</button>
+                            <button class="btn">Outer Core</button>
+                            <button class="btn">Mantle</button>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="space-quiz">
+                        <h3>Space Quiz</h3>
+                        <p>Which planet has the most moons in our solar system?</p>
+                        <div class="quiz-options">
+                            <button class="btn">Jupiter</button>
+                            <button class="btn">Saturn</button>
+                            <button class="btn">Neptune</button>
+                        </div>
+                        <p style="margin-top: 2rem;">What is the name of the supermassive black hole at the center of our galaxy?</p>
+                        <div class="quiz-options">
+                            <button class="btn">Sagittarius A*</button>
+                            <button class="btn">Cygnus X-1</button>
+                            <button class="btn">M87</button>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="wonders-quiz">
+                        <h3>Wonders Quiz</h3>
+                        <p>Which of these is NOT one of the Seven Natural Wonders?</p>
+                        <div class="quiz-options">
+                            <button class="btn">Grand Canyon</button>
+                            <button class="btn">Great Wall of China</button>
+                            <button class="btn">Victoria Falls</button>
+                        </div>
+                        <p style="margin-top: 2rem;">Where would you find the Waitomo Glowworm Caves?</p>
+                        <div class="quiz-options">
+                            <button class="btn">New Zealand</button>
+                            <button class="btn">Australia</button>
+                            <button class="btn">Indonesia</button>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="science-quiz">
+                        <h3>Science Quiz</h3>
+                        <p>What percentage of Earth's atmosphere is composed of oxygen?</p>
+                        <div class="quiz-options">
+                            <button class="btn">21%</button>
+                            <button class="btn">32%</button>
+                            <button class="btn">78%</button>
+                        </div>
+                        <p style="margin-top: 2rem;">Which of these elements is most abundant in the universe?</p>
+                        <div class="quiz-options">
+                            <button class="btn">Hydrogen</button>
+                            <button class="btn">Oxygen</button>
+                            <button class="btn">Carbon</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>CosmosOdyssey</h3>
+                    <p>
+                        Exploring the wonders of our planet and the mysteries of the universe 
+                        through education and discovery. Join us on this journey of cosmic exploration 
+                        and scientific wonder.
+                    </p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Explore</h3>
+                    <ul>
+                        <li><a href="#earth"><i class="fas fa-chevron-right"></i> Earth Explorer</a></li>
+                        <li><a href="#space"><i class="fas fa-chevron-right"></i> Space Explorer</a></li>
+                        <li><a href="#wonders"><i class="fas fa-chevron-right"></i> Natural Wonders</a></li>
+                        <li><a href="#quiz"><i class="fas fa-chevron-right"></i> Knowledge Quiz</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="https://www.nasa.gov" target="_blank"><i class="fas fa-chevron-right"></i> NASA</a></li>
+                        <li><a href="https://www.nationalgeographic.com" target="_blank"><i class="fas fa-chevron-right"></i> National Geographic</a></li>
+                        <li><a href="https://www.esa.int" target="_blank"><i class="fas fa-chevron-right"></i> European Space Agency</a></li>
+                        <li><a href="https://www.noaa.gov" target="_blank"><i class="fas fa-chevron-right"></i> NOAA</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="mailto:explore@cosmosodyssey.com"><i class="fas fa-chevron-right"></i> Email Us</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Feedback</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Careers</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Press</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 CosmosOdyssey. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Google Translate Element -->
+    <div id="google_translate_element"></div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const nav = document.getElementById('nav');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = nav.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Smooth Scrolling for Navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - document.getElementById('header').offsetHeight,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (nav.classList.contains('active')) {
+                        nav.classList.remove('active');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                }
+            });
+        });
+
+        // Tab System
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+                const tabContainer = button.closest('.interactive-container');
+                
+                // Remove active class from all buttons and contents
+                tabContainer.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                tabContainer.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Add active class to clicked button and corresponding content
+                button.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Navigation Active State
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - document.getElementById('header').offsetHeight - 50)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Quiz Functionality
+        const quizOptions = document.querySelectorAll('.quiz-options .btn');
+        quizOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove active class from all options in this question
+                this.parentNode.querySelectorAll('.btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Add active class to clicked option
+                this.classList.add('active');
+                
+                // Check answer (simplified - would need actual answer checking logic)
+                const correctAnswers = {
+                    'earth-quiz': ['Mariana Trench', 'Outer Core'],
+                    'space-quiz': ['Saturn', 'Sagittarius A*'],
+                    'wonders-quiz': ['Great Wall of China', 'New Zealand'],
+                    'science-quiz': ['21%', 'Hydrogen']
+                };
+                
+                const currentTab = this.closest('.tab-content').id;
+                const questionIndex = Array.from(this.parentNode.parentNode.querySelectorAll('p')).indexOf(this.parentNode.previousElementSibling) / 2;
+                const isCorrect = this.textContent.trim() === correctAnswers[currentTab][questionIndex];
+                
+                setTimeout(() => {
+                    if (isCorrect) {
+                        this.style.backgroundColor = 'rgba(100, 255, 218, 0.2)';
+                        this.style.borderColor = 'var(--secondary)';
+                        this.innerHTML += ' <i class="fas fa-check"></i>';
+                    } else {
+                        this.style.backgroundColor = 'rgba(255, 100, 130, 0.2)';
+                        this.style.borderColor = 'var(--accent)';
+                        this.innerHTML += ' <i class="fas fa-times"></i>';
+                    }
+                }, 300);
+            });
+        });
+
+        // Floating Animation for Elements
+        const floatingElements = document.querySelectorAll('.feature-card, .data-card, .detail-card');
+        floatingElements.forEach((el, index) => {
+            el.style.animationDelay = `${index * 0.1}s`;
+            el.classList.add('floating');
+        });
+
+        // Exploration Details Toggle
+        const exploreEarthBtn = document.getElementById('exploreEarthBtn');
+        const earthDetails = document.getElementById('earthDetails');
+        
+        const exploreSpaceBtn = document.getElementById('exploreSpaceBtn');
+        const spaceDetails = document.getElementById('spaceDetails');
+        
+        const exploreWondersBtn = document.getElementById('exploreWondersBtn');
+        const wondersDetails = document.getElementById('wondersDetails');
+        
+        exploreEarthBtn.addEventListener('click', () => {
+            earthDetails.classList.toggle('active');
+            exploreEarthBtn.innerHTML = earthDetails.classList.contains('active') ? 
+                'Hide Details <i class="fas fa-chevron-up"></i>' : 'Explore Earth <i class="fas fa-chevron-down"></i>';
+            if (earthDetails.classList.contains('active')) {
+                earthDetails.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        });
+        
+        exploreSpaceBtn.addEventListener('click', () => {
+            spaceDetails.classList.toggle('active');
+            exploreSpaceBtn.innerHTML = spaceDetails.classList.contains('active') ? 
+                'Hide Details <i class="fas fa-chevron-up"></i>' : 'Explore Space <i class="fas fa-chevron-down"></i>';
+            if (spaceDetails.classList.contains('active')) {
+                spaceDetails.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        });
+        
+        exploreWondersBtn.addEventListener('click', () => {
+            wondersDetails.classList.toggle('active');
+            exploreWondersBtn.innerHTML = wondersDetails.classList.contains('active') ? 
+                'Hide Details <i class="fas fa-chevron-up"></i>' : 'Explore Wonders <i class="fas fa-chevron-down"></i>';
+            if (wondersDetails.classList.contains('active')) {
+                wondersDetails.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        });
+        
+        // Add pulse animation to section titles
+        const sectionTitles = document.querySelectorAll('.section-title');
+        sectionTitles.forEach(title => {
+            title.classList.add('pulse');
+        });
+        
+        // Add star pulse animation to space elements
+        const spaceElements = document.querySelectorAll('.space .feature-icon, .space .detail-title i');
+        spaceElements.forEach(el => {
+            el.classList.add('star-pulse');
+        });
+        
+        // Google Translate API
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,es,fr,de,it,pt,ru,zh-CN,ja,ar,hi,bn,pa,ta,te,ml,ur',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
