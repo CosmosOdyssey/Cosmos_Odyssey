@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="https://img.icons8.com/color/48/000000/space-shuttle.png" type="image/png">
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
     <style>
         :root {
             --primary: #0a192f;
@@ -525,6 +528,53 @@
             margin-bottom: 2.5rem;
         }
 
+        /* 3D Globe Container */
+        .globe-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            margin: 3rem 0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            box-shadow: var(--shadow);
+            background: var(--primary-light);
+        }
+
+        #earthGlobe {
+            width: 100%;
+            height: 100%;
+        }
+
+        .globe-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 10;
+            display: flex;
+            gap: 10px;
+        }
+
+        .globe-control-btn {
+            background: rgba(10, 25, 47, 0.7);
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+
+        .globe-control-btn:hover {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+
         /* Data Cards */
         .data-cards {
             display: grid;
@@ -727,10 +777,16 @@
             justify-content: center;
         }
 
-        .quiz-options .btn.active {
-            background: var(--secondary);
-            color: var(--primary);
-            box-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
+        .quiz-options .btn.correct {
+            background: rgba(100, 255, 218, 0.2) !important;
+            border-color: var(--secondary) !important;
+            color: var(--secondary) !important;
+        }
+
+        .quiz-options .btn.incorrect {
+            background: rgba(255, 100, 130, 0.2) !important;
+            border-color: var(--accent) !important;
+            color: var(--accent) !important;
         }
 
         .quiz-section {
@@ -889,6 +945,10 @@
             .detail-grid {
                 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             }
+            
+            .globe-container {
+                height: 400px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1012,6 +1072,10 @@
             #google_translate_element .goog-te-menu-value span {
                 display: none;
             }
+            
+            .globe-container {
+                height: 350px;
+            }
         }
 
         @media (max-width: 576px) {
@@ -1068,6 +1132,21 @@
             
             #google_translate_element {
                 display: none; /* Hide on very small screens */
+            }
+            
+            .globe-container {
+                height: 300px;
+            }
+            
+            .globe-controls {
+                bottom: 10px;
+                left: 10px;
+            }
+            
+            .globe-control-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
             }
         }
 
@@ -1221,6 +1300,16 @@
                             <div class="data-label">Oceans</div>
                         </div>
                     </div>
+                    
+                    <!-- 3D Globe Container -->
+                    <div class="globe-container">
+                        <div id="earthGlobe"></div>
+                        <div class="globe-controls">
+                            <button class="globe-control-btn" id="rotateGlobe"><i class="fas fa-sync-alt"></i></button>
+                            <button class="globe-control-btn" id="resetGlobe"><i class="fas fa-globe-americas"></i></button>
+                        </div>
+                    </div>
+                    
                     <button id="exploreEarthBtn" class="btn">Explore Earth <i class="fas fa-chevron-down"></i></button>
                     
                     <div class="exploration-details" id="earthDetails">
@@ -1549,14 +1638,14 @@
                         <h3>Earth Quiz</h3>
                         <p>What is the deepest point in Earth's oceans?</p>
                         <div class="quiz-options">
-                            <button class="btn">Mariana Trench</button>
+                            <button class="btn" data-correct="true">Mariana Trench</button>
                             <button class="btn">Puerto Rico Trench</button>
                             <button class="btn">Java Trench</button>
                         </div>
                         <p style="margin-top: 2rem;">Which layer of Earth is primarily responsible for generating its magnetic field?</p>
                         <div class="quiz-options">
                             <button class="btn">Inner Core</button>
-                            <button class="btn">Outer Core</button>
+                            <button class="btn" data-correct="true">Outer Core</button>
                             <button class="btn">Mantle</button>
                         </div>
                     </div>
@@ -1565,12 +1654,12 @@
                         <p>Which planet has the most moons in our solar system?</p>
                         <div class="quiz-options">
                             <button class="btn">Jupiter</button>
-                            <button class="btn">Saturn</button>
+                            <button class="btn" data-correct="true">Saturn</button>
                             <button class="btn">Neptune</button>
                         </div>
                         <p style="margin-top: 2rem;">What is the name of the supermassive black hole at the center of our galaxy?</p>
                         <div class="quiz-options">
-                            <button class="btn">Sagittarius A*</button>
+                            <button class="btn" data-correct="true">Sagittarius A*</button>
                             <button class="btn">Cygnus X-1</button>
                             <button class="btn">M87</button>
                         </div>
@@ -1580,12 +1669,12 @@
                         <p>Which of these is NOT one of the Seven Natural Wonders?</p>
                         <div class="quiz-options">
                             <button class="btn">Grand Canyon</button>
-                            <button class="btn">Great Wall of China</button>
+                            <button class="btn" data-correct="true">Great Wall of China</button>
                             <button class="btn">Victoria Falls</button>
                         </div>
                         <p style="margin-top: 2rem;">Where would you find the Waitomo Glowworm Caves?</p>
                         <div class="quiz-options">
-                            <button class="btn">New Zealand</button>
+                            <button class="btn" data-correct="true">New Zealand</button>
                             <button class="btn">Australia</button>
                             <button class="btn">Indonesia</button>
                         </div>
@@ -1594,13 +1683,13 @@
                         <h3>Science Quiz</h3>
                         <p>What percentage of Earth's atmosphere is composed of oxygen?</p>
                         <div class="quiz-options">
-                            <button class="btn">21%</button>
+                            <button class="btn" data-correct="true">21%</button>
                             <button class="btn">32%</button>
                             <button class="btn">78%</button>
                         </div>
                         <p style="margin-top: 2rem;">Which of these elements is most abundant in the universe?</p>
                         <div class="quiz-options">
-                            <button class="btn">Hydrogen</button>
+                            <button class="btn" data-correct="true">Hydrogen</button>
                             <button class="btn">Oxygen</button>
                             <button class="btn">Carbon</button>
                         </div>
@@ -1760,36 +1849,32 @@
         quizOptions.forEach(option => {
             option.addEventListener('click', function() {
                 // Remove active class from all options in this question
-                this.parentNode.querySelectorAll('.btn').forEach(btn => {
-                    btn.classList.remove('active');
+                const parentDiv = this.parentNode;
+                parentDiv.querySelectorAll('.btn').forEach(btn => {
+                    btn.classList.remove('correct', 'incorrect');
+                    
+                    // Remove any existing icons
+                    const icons = btn.querySelectorAll('i');
+                    icons.forEach(icon => icon.remove());
                 });
                 
-                // Add active class to clicked option
-                this.classList.add('active');
+                // Check if the selected answer is correct
+                const isCorrect = this.hasAttribute('data-correct');
                 
-                // Check answer (simplified - would need actual answer checking logic)
-                const correctAnswers = {
-                    'earth-quiz': ['Mariana Trench', 'Outer Core'],
-                    'space-quiz': ['Saturn', 'Sagittarius A*'],
-                    'wonders-quiz': ['Great Wall of China', 'New Zealand'],
-                    'science-quiz': ['21%', 'Hydrogen']
-                };
-                
-                const currentTab = this.closest('.tab-content').id;
-                const questionIndex = Array.from(this.parentNode.parentNode.querySelectorAll('p')).indexOf(this.parentNode.previousElementSibling) / 2;
-                const isCorrect = this.textContent.trim() === correctAnswers[currentTab][questionIndex];
-                
-                setTimeout(() => {
-                    if (isCorrect) {
-                        this.style.backgroundColor = 'rgba(100, 255, 218, 0.2)';
-                        this.style.borderColor = 'var(--secondary)';
-                        this.innerHTML += ' <i class="fas fa-check"></i>';
-                    } else {
-                        this.style.backgroundColor = 'rgba(255, 100, 130, 0.2)';
-                        this.style.borderColor = 'var(--accent)';
-                        this.innerHTML += ' <i class="fas fa-times"></i>';
+                if (isCorrect) {
+                    this.classList.add('correct');
+                    this.innerHTML += ' <i class="fas fa-check"></i>';
+                } else {
+                    this.classList.add('incorrect');
+                    this.innerHTML += ' <i class="fas fa-times"></i>';
+                    
+                    // Highlight the correct answer
+                    const correctAnswer = parentDiv.querySelector('[data-correct="true"]');
+                    if (correctAnswer) {
+                        correctAnswer.classList.add('correct');
+                        correctAnswer.innerHTML += ' <i class="fas fa-check"></i>';
                     }
-                }, 300);
+                }
             });
         });
 
@@ -1858,6 +1943,142 @@
                 autoDisplay: false
             }, 'google_translate_element');
         }
+        
+        // 3D Earth Globe with Three.js
+        function initEarthGlobe() {
+            const container = document.getElementById('earthGlobe');
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            
+            // Create scene
+            const scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x0a192f);
+            
+            // Create camera
+            const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+            camera.position.z = 2;
+            
+            // Create renderer
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(width, height);
+            container.appendChild(renderer.domElement);
+            
+            // Add controls
+            const controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.minDistance = 1.5;
+            controls.maxDistance = 5;
+            controls.autoRotate = true;
+            controls.autoRotateSpeed = 0.5;
+            
+            // Create Earth
+            const geometry = new THREE.SphereGeometry(1, 64, 64);
+            
+            // Earth texture
+            const textureLoader = new THREE.TextureLoader();
+            const earthTexture = textureLoader.load('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_atmos_2048.jpg');
+            const bumpMap = textureLoader.load('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_normal_2048.jpg');
+            const specularMap = textureLoader.load('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_specular_2048.jpg');
+            
+            const material = new THREE.MeshPhongMaterial({
+                map: earthTexture,
+                bumpMap: bumpMap,
+                bumpScale: 0.05,
+                specularMap: specularMap,
+                specular: new THREE.Color('grey'),
+                shininess: 5
+            });
+            
+            const earth = new THREE.Mesh(geometry, material);
+            scene.add(earth);
+            
+            // Add clouds
+            const cloudGeometry = new THREE.SphereGeometry(1.01, 64, 64);
+            const cloudTexture = textureLoader.load('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_clouds_1024.png');
+            const cloudMaterial = new THREE.MeshPhongMaterial({
+                map: cloudTexture,
+                transparent: true,
+                opacity: 0.4
+            });
+            
+            const clouds = new THREE.Mesh(cloudGeometry, cloudMaterial);
+            scene.add(clouds);
+            
+            // Add stars
+            const starGeometry = new THREE.BufferGeometry();
+            const starMaterial = new THREE.PointsMaterial({
+                color: 0xffffff,
+                size: 0.02,
+                transparent: true
+            });
+            
+            const starVertices = [];
+            for (let i = 0; i < 10000; i++) {
+                const x = (Math.random() - 0.5) * 2000;
+                const y = (Math.random() - 0.5) * 2000;
+                const z = (Math.random() - 0.5) * 2000;
+                starVertices.push(x, y, z);
+            }
+            
+            starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+            const stars = new THREE.Points(starGeometry, starMaterial);
+            scene.add(stars);
+            
+            // Add ambient light
+            const ambientLight = new THREE.AmbientLight(0x333333);
+            scene.add(ambientLight);
+            
+            // Add directional light (sun)
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(5, 3, 5);
+            scene.add(directionalLight);
+            
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                const newWidth = container.clientWidth;
+                const newHeight = container.clientHeight;
+                
+                camera.aspect = newWidth / newHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(newWidth, newHeight);
+            });
+            
+            // Animation loop
+            let rotateGlobe = true;
+            const rotateGlobeBtn = document.getElementById('rotateGlobe');
+            const resetGlobeBtn = document.getElementById('resetGlobe');
+            
+            rotateGlobeBtn.addEventListener('click', () => {
+                rotateGlobe = !rotateGlobe;
+                controls.autoRotate = rotateGlobe;
+                rotateGlobeBtn.innerHTML = rotateGlobe ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-sync-alt"></i>';
+            });
+            
+            resetGlobeBtn.addEventListener('click', () => {
+                controls.reset();
+                rotateGlobe = true;
+                controls.autoRotate = true;
+                rotateGlobeBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            });
+            
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                if (rotateGlobe) {
+                    earth.rotation.y += 0.001;
+                    clouds.rotation.y += 0.0015;
+                }
+                
+                controls.update();
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+        }
+        
+        // Initialize the globe when the page loads
+        window.addEventListener('load', initEarthGlobe);
     </script>
     
     <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
